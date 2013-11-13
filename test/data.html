@@ -7,8 +7,10 @@
   <title>Zepto extended data() unit tests</title>
   <script src="../vendor/evidence.js"></script>
   <script src="evidence_runner.js"></script>
+  <script src="../src/polyfill.js"></script>
   <script src="../src/zepto.js"></script>
   <script src="../src/data.js"></script>
+  <script src="../src/ie.js"></script>
 </head>
 <body>
   <h1>Zepto data() tests</h1>
@@ -207,6 +209,14 @@
 
           var values2 = items.map(function(){ return $(this).data('answer') }).get()
           t.assertEqual('42, 42', values2.join(', '))
+      },
+
+      testSettingDataOnObjectWithoutAttributes: function(t) {
+        var el = $(window)
+
+        t.assertUndefined(el.data('foo'))
+        el.data('foo', 'bar')
+        t.assertEqual(el.data('foo'), 'bar')
       }
 
     })
